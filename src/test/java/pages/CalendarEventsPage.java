@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.interactions.Actions;
 import utilities.BrowserUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -113,5 +114,24 @@ public class CalendarEventsPage extends AbstractPageBase {
         wait.until(ExpectedConditions.visibilityOf(endTime));
         return endTime.getAttribute(("value"));
     }
+//###############################################################################################################
+    @FindBy(xpath = "//td[text()='Testers Meeting']/following-sibling::td//a[text()='...']")
+    private WebElement threeDots;
+
+    @FindBy(xpath ="//*[@href='/calendar/event/view/1846']")
+    public WebElement view;
+    @FindBy(xpath = "//*[@href='/calendar/event/update/1846']")
+    public WebElement edit;
+    @FindBy(xpath = "//*[@href='/calendar/event/update/1846']/../following-sibling::*//a")
+    public WebElement delete;
+
+
+    public void hoverOverThreeDots(){
+
+      Actions actions = new Actions(driver);
+     BrowserUtils.waitForPageToLoad(25);
+      actions.moveToElement(threeDots).pause(2000).perform();
+    }
+
 
 }

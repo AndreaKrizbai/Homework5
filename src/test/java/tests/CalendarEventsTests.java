@@ -1,6 +1,7 @@
 package tests;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CalendarEventsPage;
 import pages.LoginPage;
@@ -8,7 +9,6 @@ import utilities.Driver;
 
 public class CalendarEventsTests extends AbstractTestBase {
     public WebDriver driver = Driver.getDriver();
-    LoginPage loginPage = new LoginPage();
     CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
 
     /*
@@ -21,7 +21,13 @@ public class CalendarEventsTests extends AbstractTestBase {
     */
     @Test
     public void test1(){
-
+        test = report.createTest("Verify that “view”, “edit” and “delete” options are available");
+        calendarEventsPage.navigateTo("Activities", "Calendar Events");
+        calendarEventsPage.hoverOverThreeDots();
+        Assert.assertTrue(calendarEventsPage.view.isDisplayed());
+        Assert.assertTrue(calendarEventsPage.edit.isDisplayed());
+        Assert.assertTrue(calendarEventsPage.delete.isDisplayed());
+        test.pass("view, edit and delete options are available and verified");
     }
 
     /*

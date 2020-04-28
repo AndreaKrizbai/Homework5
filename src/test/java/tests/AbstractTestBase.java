@@ -1,5 +1,6 @@
 package tests;
 
+import pages.LoginPage;
 import utilities.BrowserUtils;
 import utilities.ConfigurationReader;
 import utilities.Driver;
@@ -18,6 +19,7 @@ public abstract class AbstractTestBase {
     //will be visible in the subclass, regardless on subclass location (same package or no)
     protected WebDriverWait wait;
     protected Actions actions;
+    protected LoginPage loginPage;
     protected ExtentReports report;
     protected ExtentHtmlReporter htmlReporter;
     protected ExtentTest test;
@@ -59,6 +61,8 @@ public abstract class AbstractTestBase {
         Driver.getDriver().manage().window().maximize();
         wait = new WebDriverWait(Driver.getDriver(), 25);
         actions = new Actions(Driver.getDriver());
+        loginPage = new LoginPage();
+        loginPage.login();
     }
 
     @AfterMethod
