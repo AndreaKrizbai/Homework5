@@ -94,6 +94,7 @@ public class CalendarEventsPage extends AbstractPageBase {
         BrowserUtils.waitForPageToLoad(25);
         wait.until(ExpectedConditions.elementToBeClickable(createCalendarEvent)).click();
         BrowserUtils.waitForPageToLoad(25);
+        BrowserUtils.wait(2);
     }
 
     public String getStartDate(){
@@ -125,11 +126,25 @@ public class CalendarEventsPage extends AbstractPageBase {
     @FindBy(xpath = "//*[@href='/calendar/event/update/1846']/../following-sibling::*//a")
     public WebElement delete;
 
+    @FindBy(xpath = "//*[@title='Grid Settings']")
+    public WebElement gridIcon;
+
+    @FindBy(xpath = "//span[text()='Title']")
+    public WebElement titleColumn;
+
+    @FindBy(xpath = "(//*[@data-toggle='dropdown'])[4]")
+    public WebElement saveAndCloseDropdown;
+
+    @FindBy(xpath = "//ul//li//button[contains(text(),'Save and Close')]")
+    public WebElement saveAndClose1;
+    @FindBy(xpath = "//ul//li//button[contains(text(),'Save and New')]")
+    public WebElement saveAndNew2;
+    @FindBy(xpath = "(//ul//li//button[contains(text(),'Save')])[3]")
+    public WebElement save3;
 
     public void hoverOverThreeDots(){
-
       Actions actions = new Actions(driver);
-     BrowserUtils.waitForPageToLoad(25);
+        BrowserUtils.waitForPageToLoad(25);
       actions.moveToElement(threeDots).pause(2000).perform();
     }
 

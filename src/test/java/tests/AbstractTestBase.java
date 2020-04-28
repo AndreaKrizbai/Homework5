@@ -1,5 +1,6 @@
 package tests;
 
+import pages.CalendarEventsPage;
 import pages.LoginPage;
 import utilities.BrowserUtils;
 import utilities.ConfigurationReader;
@@ -26,6 +27,7 @@ public abstract class AbstractTestBase {
 
     protected static int row = 1;
     protected ExcelUtil excelUtil;
+    CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
     //@Optional - to make parameter optional
     //if you don't specify it, testng will require to specify this parameter for every test, in xml runner
 
@@ -63,6 +65,7 @@ public abstract class AbstractTestBase {
         actions = new Actions(Driver.getDriver());
         loginPage = new LoginPage();
         loginPage.login();
+        calendarEventsPage.navigateTo("Activities", "Calendar Events");
     }
 
     @AfterMethod

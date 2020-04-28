@@ -1,15 +1,19 @@
 package tests;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CalendarEventsPage;
 import pages.LoginPage;
+import utilities.BrowserUtils;
 import utilities.Driver;
+
+import java.util.List;
 
 public class CalendarEventsTests extends AbstractTestBase {
     public WebDriver driver = Driver.getDriver();
-    CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
 
     /*
     * Test Case #1
@@ -22,12 +26,11 @@ public class CalendarEventsTests extends AbstractTestBase {
     @Test
     public void test1(){
         test = report.createTest("Verify that “view”, “edit” and “delete” options are available");
-        calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.hoverOverThreeDots();
         Assert.assertTrue(calendarEventsPage.view.isDisplayed());
         Assert.assertTrue(calendarEventsPage.edit.isDisplayed());
         Assert.assertTrue(calendarEventsPage.delete.isDisplayed());
-        test.pass("view, edit and delete options are available and verified");
+        test.pass("View, edit and delete options are verified");
     }
 
     /*
@@ -41,7 +44,15 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test2(){
-
+        test = report.createTest("Verify that “Title” column still displayed");
+        calendarEventsPage.gridIcon.click();
+        List<WebElement> gridOptions = driver.findElements(By.xpath("//*[@data-role='renderable']"));
+        for (int i = 1; i < gridOptions.size(); i++) {
+          gridOptions.get(i).click();
+            BrowserUtils.wait(1);
+        }
+        Assert.assertTrue(calendarEventsPage.titleColumn.isDisplayed());
+        test.pass("Title column is verified");
     }
 
     /**
@@ -55,7 +66,13 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test3(){
-
+        test = report.createTest("Verify that “Save And Close”, “Save And New” and “Save” options are available");
+        calendarEventsPage.clickToCreateCalendarEvent();
+        calendarEventsPage.saveAndCloseDropdown.click();
+        Assert.assertTrue(calendarEventsPage.saveAndClose1.isDisplayed());
+        Assert.assertTrue(calendarEventsPage.saveAndNew2.isDisplayed());
+        Assert.assertTrue(calendarEventsPage.save3.isDisplayed());
+        test.pass("“Save And Close”, “Save And New” and “Save” options are verified");
     }
 
     /*
