@@ -222,7 +222,7 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test10(){
-        test = report.createTest("erify that following message as a summary is displayed: “Summary: Daily every 1 day, end after 10 occurrences");
+        test = report.createTest("Verify that following message as a summary is displayed: “Summary: Daily every 1 day, end after 10 occurrences");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.repeatCheckbox.click();
         calendarEventsPage.afterRadioBtn.click();
@@ -244,7 +244,14 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test11(){
-
+    test = report.createTest("Verify that following message as a summary is displayed: “Summary: Daily every 1 day, end by Nov 18, 2021”");
+        calendarEventsPage.clickToCreateCalendarEvent();
+        calendarEventsPage.repeatCheckbox.click();
+        calendarEventsPage.byRadioBtn.click();
+        calendarEventsPage.datePicker.sendKeys("Nov 18, 2021");
+        Assert.assertEquals(calendarEventsPage.summaryPart1.getText()+" "+calendarEventsPage.summaryPart2.getText() + calendarEventsPage.byDate.getText(),
+                "Summary: Daily every 1 day, end by Nov 18, 2021");
+        test.pass("End date verified");
     }
 
     /**
@@ -261,7 +268,17 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test12(){
-
+        test = report.createTest("Verify Monday and Friday repeats");
+        calendarEventsPage.clickToCreateCalendarEvent();
+        calendarEventsPage.repeatCheckbox.click();
+        Select select = new Select(calendarEventsPage.repeatDropdown);
+        select.selectByVisibleText("Weekly");
+        List<WebElement>repeatOn = driver.findElements(By.xpath("//input[@name='recurrence[dayOfWeek]']"));
+        repeatOn.get(1).click();
+        repeatOn.get(5).click();
+        Assert.assertEquals(calendarEventsPage.summaryPart1.getText()+" "+calendarEventsPage.summaryPart2.getText(),
+                "Summary: Weekly every 1 week on Monday, Friday");
+        test.pass("Weekly repeat verified");
     }
 
 

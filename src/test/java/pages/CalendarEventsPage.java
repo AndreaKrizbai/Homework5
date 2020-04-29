@@ -171,7 +171,7 @@ public class CalendarEventsPage extends AbstractPageBase {
     @FindBy(xpath = "//label[text()='Summary:']")
     public WebElement summaryPart1;
 
-    @FindBy(xpath = "//span[text()='Daily every 1 day']")
+    @FindBy(xpath = "//div[@data-name='recurrence-summary']//div/span[1]")
     public WebElement summaryPart2;
 
     @FindBy(xpath = "(//input[@type='radio'])[4]")
@@ -180,11 +180,20 @@ public class CalendarEventsPage extends AbstractPageBase {
     @FindBy(xpath = "//*[@data-related-field='occurrences']")
     public WebElement occurrencesBox;
 
-    @FindBy(xpath = "//span[text()=', end after 10 occurrences']")
+    @FindBy(xpath = "//div[@data-name='recurrence-summary']//div/span[2]")
     public WebElement summaryPart3;
 
+    @FindBy(xpath = "(//input[@type='radio'])[5]")
+    public WebElement byRadioBtn;
 
-    public void hoverOverThreeDots(){
+    @FindBy(xpath = "//*[@class='datepicker-input hasDatepicker']")
+    public WebElement datePicker;
+
+    @FindBy(xpath = "//div//span[text()='Daily every 1 day']/following-sibling::span")
+    public WebElement byDate;
+
+
+     public void hoverOverThreeDots(){
       Actions actions = new Actions(driver);
         BrowserUtils.waitForPageToLoad(25);
       actions.moveToElement(threeDots).pause(2000).perform();
