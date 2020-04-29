@@ -18,13 +18,16 @@ public class CalendarEventsPage extends AbstractPageBase {
     private WebElement owner;
 
     @FindBy(css = "[id^='date_selector_oro_calendar_event_form_start']")
-    private WebElement startDate;
+    public WebElement startDate;
 
     @FindBy(css = "[id^='time_selector_oro_calendar_event_form_start']")
-    private WebElement startTime;
+    public WebElement startTime;
 
     @FindBy(css = "[id^='time_selector_oro_calendar_event_form_end']")
-    private WebElement endTime;
+    public WebElement endTime;
+
+    @FindBy(css = "[id^='date_selector_oro_calendar_event_form_end']")
+    public WebElement endDate;
 
     @FindBy(className = "grid-header-cell__label")
     private List<WebElement> columnNames;
@@ -146,6 +149,20 @@ public class CalendarEventsPage extends AbstractPageBase {
     public WebElement cancelButton;
     @FindBy(className = "oro-subtitle")
     public WebElement allCalendarEventsTitle;
+
+    @FindBy(xpath = "//li[text()='9:00 PM']")
+    public WebElement time900Pm;
+
+    @FindBy(css = "[id^='oro_calendar_event_form_allDay-uid']")
+    public WebElement allDayCheckbox;
+
+    @FindBy(css = "input[id^='recurrence-repeat']")
+    public WebElement repeatCheckbox;
+
+    @FindBy(css = "select[id^='recurrence-repeat']")
+    public WebElement repeatDropdown;
+
+
 
     public void hoverOverThreeDots(){
       Actions actions = new Actions(driver);

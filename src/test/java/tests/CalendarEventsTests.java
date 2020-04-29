@@ -3,6 +3,8 @@ package tests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.CalendarEventsPage;
@@ -120,7 +122,15 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test6(){
-
+        test = report.createTest("Verify that end time equals to “10:00 PM”");
+        calendarEventsPage.clickToCreateCalendarEvent();
+        calendarEventsPage.startTime.click();
+        Actions actions = new Actions(driver);
+        BrowserUtils.wait(3);
+        actions.moveToElement(calendarEventsPage.time900Pm).click().perform();
+        BrowserUtils.wait(2);
+        Assert.assertEquals(calendarEventsPage.getEndTime(), "10:00 PM");
+        test.pass("End time equaling to 10PM is verified");
     }
 
     /**
@@ -136,7 +146,16 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test7(){
-
+        test = report.createTest("Verify that “All-Day Event” checkbox is selected, start and end time input boxes are not displayed, start and end date input boxes are displayed”");
+        calendarEventsPage.clickToCreateCalendarEvent();
+        calendarEventsPage.allDayCheckbox.click();
+        BrowserUtils.wait(3);
+        Assert.assertTrue(calendarEventsPage.allDayCheckbox.isSelected());
+        Assert.assertFalse(calendarEventsPage.startTime.isDisplayed());
+        Assert.assertFalse(calendarEventsPage.endTime.isDisplayed());
+        Assert.assertTrue(calendarEventsPage.startDate.isDisplayed());
+        Assert.assertTrue(calendarEventsPage.endDate.isDisplayed());
+        test.pass("All Day Event actions are verified");
     }
 
     /**
@@ -151,7 +170,17 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test8(){
-
+        calendarEventsPage.clickToCreateCalendarEvent();
+        calendarEventsPage.repeatCheckbox.click();
+        Assert.assertTrue(calendarEventsPage.repeatCheckbox.isSelected());
+        BrowserUtils.wait(1);
+        Select select = new Select(calendarEventsPage.repeatDropdown);
+        Assert.assertEquals(select.getFirstSelectedOption().getText(), "Daily");
+        List<WebElement>repeats = select.getOptions();
+        Assert.assertEquals(repeats.get(0).getText(), "Daily");
+        Assert.assertEquals(repeats.get(1).getText(), "Weekly");
+        Assert.assertEquals(repeats.get(2).getText(), "Monthly");
+        Assert.assertEquals(repeats.get(3).getText(), "Yearly");
     }
 
     /**
