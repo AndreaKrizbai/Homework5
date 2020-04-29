@@ -142,11 +142,24 @@ public class CalendarEventsPage extends AbstractPageBase {
     @FindBy(xpath = "(//ul//li//button[contains(text(),'Save')])[3]")
     public WebElement save3;
 
+    @FindBy(xpath = "//a[@title='Cancel']")
+    public WebElement cancelButton;
+    @FindBy(className = "oro-subtitle")
+    public WebElement allCalendarEventsTitle;
+
     public void hoverOverThreeDots(){
       Actions actions = new Actions(driver);
         BrowserUtils.waitForPageToLoad(25);
       actions.moveToElement(threeDots).pause(2000).perform();
     }
 
+    public Integer timeDiff(){
+        int startHour = Integer.parseInt(getStartTime().split(":")[0]);
+        int endHour = Integer.parseInt(getEndTime().split(":")[0]);
+        if(startHour==12){
+            startHour-=12;
+        }
+        return endHour-startHour;
+    }
 
 }

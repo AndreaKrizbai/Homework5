@@ -86,7 +86,11 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test4(){
-
+        test = report.createTest("Verify that “All Calendar Events” page subtitle is displayed");
+        calendarEventsPage.clickToCreateCalendarEvent();
+        calendarEventsPage.cancelButton.click();
+        Assert.assertTrue(calendarEventsPage.allCalendarEventsTitle.isDisplayed());
+        test.pass("All Calendar Events verified");
     }
 
     /**
@@ -99,7 +103,10 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test5(){
-
+        test = report.createTest("Verify that difference between end and start time is exactly 1 hour");
+        calendarEventsPage.clickToCreateCalendarEvent();
+        Assert.assertTrue(calendarEventsPage.timeDiff()==1);
+        test.pass("Difference between end and start time being exactly one hour is verified");
     }
 
     /*
