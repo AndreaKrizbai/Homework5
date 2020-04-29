@@ -1,6 +1,7 @@
 package tests;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -170,6 +171,7 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test8(){
+        test = report.createTest("Verify repeat checkbox is selected and options are displayed");
         calendarEventsPage.clickToCreateCalendarEvent();
         calendarEventsPage.repeatCheckbox.click();
         Assert.assertTrue(calendarEventsPage.repeatCheckbox.isSelected());
@@ -181,6 +183,7 @@ public class CalendarEventsTests extends AbstractTestBase {
         Assert.assertEquals(repeats.get(1).getText(), "Weekly");
         Assert.assertEquals(repeats.get(2).getText(), "Monthly");
         Assert.assertEquals(repeats.get(3).getText(), "Yearly");
+        test.pass("Repeats verified");
     }
 
     /**
@@ -197,7 +200,14 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test9(){
-
+        test = report.createTest("Verify repeat checkbox is selected, summary displayed, radio buttons selected");
+        calendarEventsPage.clickToCreateCalendarEvent();
+        calendarEventsPage.repeatCheckbox.click();
+        Assert.assertTrue(calendarEventsPage.repeatCheckbox.isSelected());
+        Assert.assertTrue(calendarEventsPage.repeatEveryRadioBtn.isSelected());
+        Assert.assertTrue(calendarEventsPage.endsNeverRadioBtn.isSelected());
+        Assert.assertEquals(calendarEventsPage.summaryPart1.getText()+" "+calendarEventsPage.summaryPart2.getText(), "Summary: Daily every 1 day");
+        test.pass("Repeats summary and buttons verified");
     }
 
     /**
@@ -212,7 +222,14 @@ public class CalendarEventsTests extends AbstractTestBase {
      */
     @Test
     public void test10(){
-
+        test = report.createTest("erify that following message as a summary is displayed: “Summary: Daily every 1 day, end after 10 occurrences");
+        calendarEventsPage.clickToCreateCalendarEvent();
+        calendarEventsPage.repeatCheckbox.click();
+        calendarEventsPage.afterRadioBtn.click();
+        calendarEventsPage.occurrencesBox.sendKeys("10", Keys.ENTER);
+        Assert.assertEquals(calendarEventsPage.summaryPart1.getText()+" "+calendarEventsPage.summaryPart2.getText() + calendarEventsPage.summaryPart3.getText(),
+                "Summary: Daily every 1 day, end after 10 occurrences");
+        test.pass("10 occurrences verified");
     }
 
     /**

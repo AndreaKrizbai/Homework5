@@ -162,6 +162,26 @@ public class CalendarEventsPage extends AbstractPageBase {
     @FindBy(css = "select[id^='recurrence-repeat']")
     public WebElement repeatDropdown;
 
+    @FindBy(xpath = "//input[@checked='checked']")
+    public WebElement repeatEveryRadioBtn;
+
+    @FindBy(xpath = "(//input[@type='radio'])[3]")
+    public WebElement endsNeverRadioBtn;
+
+    @FindBy(xpath = "//label[text()='Summary:']")
+    public WebElement summaryPart1;
+
+    @FindBy(xpath = "//span[text()='Daily every 1 day']")
+    public WebElement summaryPart2;
+
+    @FindBy(xpath = "(//input[@type='radio'])[4]")
+    public WebElement afterRadioBtn;
+
+    @FindBy(xpath = "//*[@data-related-field='occurrences']")
+    public WebElement occurrencesBox;
+
+    @FindBy(xpath = "//span[text()=', end after 10 occurrences']")
+    public WebElement summaryPart3;
 
 
     public void hoverOverThreeDots(){
